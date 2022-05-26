@@ -8,3 +8,4 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Editor)
 admin.site.register(tags)
+admin.site.site_header = 'Admin Maureen'

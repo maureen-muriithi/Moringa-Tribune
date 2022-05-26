@@ -1,4 +1,6 @@
+from distutils.command import upload
 import email
+from email.policy import default
 from django.db import models
 import datetime as dt
 
@@ -32,6 +34,7 @@ class Article(models.Model):
     editor = models.ForeignKey('Editor', on_delete=models.CASCADE)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
+    article_image = models.ImageField(upload_to = 'articles/', default='')
 
     @classmethod
     def todays_news(cls):
@@ -43,6 +46,12 @@ class Article(models.Model):
     def days_news(cls,date):
         news = cls.objects.filter(pub_date__date = date)
         return news
+
+    @classmethod
+    def search_by_title(cls, search_term):
+        news = cls.objects.filter(title__icontains=search_term)
+        return news
+
 
 
     
