@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Article, tags, Editor
+from .models import Article, NewsLetterRecipients, tags
 import datetime as dt
 
 # Create your tests here.
@@ -29,7 +29,7 @@ class ArticleTestClass(TestCase):
 
     def setUp(self):
         # Creating a new editor and saving it
-        self.james= Editor(first_name = 'James', last_name ='Muriuki', email ='james@moringaschool.com')
+        # self.james= Editor(first_name = 'James', last_name ='Muriuki', email ='james@moringaschool.com')
         self.james.save_editor()
 
         # Creating a new tag and saving it
@@ -42,7 +42,6 @@ class ArticleTestClass(TestCase):
         self.new_article.tags.add(self.new_tag)
 
     def tearDown(self):
-        Editor.objects.all().delete()
         tags.objects.all().delete()
         Article.objects.all().delete()
 
@@ -55,4 +54,6 @@ class ArticleTestClass(TestCase):
         date = dt.datetime.strptime(test_date, '%Y-%m-%d').date()
         news_by_date = Article.days_news(date)
         self.assertTrue(len(news_by_date) == 0)
+    
+    
 
